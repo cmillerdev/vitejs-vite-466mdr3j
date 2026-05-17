@@ -408,7 +408,7 @@ export default function DisposableCamera() {
   async function startCamera() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: facing, width: { ideal: 1280 }, height: { ideal: 960 } },
+        video: true,
         audio: false
       });
       setCameraStream(stream);
@@ -416,10 +416,11 @@ export default function DisposableCamera() {
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
         videoRef.current.play();
+      } catch (err) {
+        console.error("Camera error:", err);
+        alert("Camera error: " + (err?.message || err));
+        setHasCamera(false);
       }
-    } catch {
-      setHasCamera(false);
-    }
   }
 
   function stopCamera() {
