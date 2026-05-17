@@ -924,7 +924,6 @@ applyFilmEffect(ctx, tempCanvas.width, tempCanvas.height);
         )}
 
 <div className={`viewfinder ${flashAnim ? "flash-anim" : ""}`}>
-  {hasCamera ? (
     <video
     ref={videoRef}
     autoPlay
