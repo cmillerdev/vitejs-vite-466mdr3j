@@ -926,21 +926,26 @@ applyFilmEffect(ctx, tempCanvas.width, tempCanvas.height);
 <div className={`viewfinder ${flashAnim ? "flash-anim" : ""}`}>
   {hasCamera ? (
     <video
-      ref={videoRef}
-      autoPlay
-      playsInline
-      muted
-      style={{
-        transform: facing === "user" ? "scaleX(-1)" : "none",
-        filter: getFilterStyle(selectedFilter)
-      }}
-    />
-  ) : (
+    ref={videoRef}
+    autoPlay
+    playsInline
+    muted
+    style={{
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      transform: facing === "user" ? "scaleX(-1)" : "none",
+      filter: getFilterStyle(selectedFilter),
+      display: hasCamera ? "block" : "none"
+    }}
+  />
+  
+  {!hasCamera && (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", color: "#555", fontSize: 12 }}>
       Camera not available — upload below
     </div>
   )}
-
+  
   <div className="vf-overlay vf-corners" />
   <div className="film-badge">DISPO-CAM · 400</div>
 </div>
