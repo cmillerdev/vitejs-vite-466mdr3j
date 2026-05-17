@@ -922,7 +922,7 @@ applyFilmEffect(ctx, tempCanvas.width, tempCanvas.height);
           </div>
         )}
 
-<div className={`viewfinder ${flashAnim ? "flash-anim" : ""}`}>
+<div className={`viewfinder>
     <video
     ref={videoRef}
     autoPlay
@@ -933,7 +933,6 @@ applyFilmEffect(ctx, tempCanvas.width, tempCanvas.height);
       height: "100%",
       objectFit: "cover",
       transform: facing === "user" ? "scaleX(-1)" : "none",
-      filter: getFilterStyle(selectedFilter),
       display: hasCamera ? "block" : "none"
     }}
   />
