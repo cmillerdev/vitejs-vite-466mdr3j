@@ -373,6 +373,16 @@ export default function DisposableCamera() {
   }, [lastUploadCount]);
 
   useEffect(() => {
+    if (cameraStream && videoRef.current) {
+      videoRef.current.srcObject = cameraStream;
+      videoRef.current.play().catch(err => {
+        console.error("Video play error:", err);
+        alert("Video play error: " + (err?.message || err));
+      });
+    }
+  }, [cameraStream]);
+
+  useEffect(() => {
     try {
       localStorage.setItem("dispocam_albums", JSON.stringify(albums));
     } catch (err) {
