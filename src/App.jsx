@@ -412,7 +412,6 @@ export default function DisposableCamera() {
     } else {
       stopCamera();
     }
-    return () => stopCamera();
   }, [view]);
 
   async function startCamera() {
