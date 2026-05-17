@@ -363,6 +363,18 @@ export default function DisposableCamera() {
   }, []);
 
   useEffect(() => {
+    if (view !== "camera") return;
+    if (!cameraStream) return;
+    if (!videoRef.current) return;
+  
+    videoRef.current.srcObject = cameraStream;
+  
+    videoRef.current.play().catch(err => {
+      console.warn("Video resume issue:", err);
+    });
+  });
+
+  useEffect(() => {
     if (lastUploadCount === 0) return;
   
     const timeout = setTimeout(() => {
@@ -473,8 +485,6 @@ export default function DisposableCamera() {
     applySelectedFilter(ctx, canvas.width, canvas.height);
     const dataUrl = canvas.toDataURL("image/jpeg", 0.88);
     addPhoto(dataUrl);
-    setFlashAnim(true);
-    setTimeout(() => setFlashAnim(false), 400);
     showToast("📸 Photo added!");
   }
 
