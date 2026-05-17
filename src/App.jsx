@@ -411,16 +411,19 @@ export default function DisposableCamera() {
         video: true,
         audio: false
       });
+  
       setCameraStream(stream);
       setHasCamera(true);
+  
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
         videoRef.current.play();
-      } catch (err) {
-        console.error("Camera error:", err);
-        alert("Camera error: " + (err?.message || err));
-        setHasCamera(false);
       }
+    } catch (err) {
+      console.error("Camera error:", err);
+      alert("Camera error: " + (err?.message || err));
+      setHasCamera(false);
+    }
   }
 
   function stopCamera() {
