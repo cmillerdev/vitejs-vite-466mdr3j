@@ -719,7 +719,7 @@ applyFilmEffect(ctx, tempCanvas.width, tempCanvas.height);
     return (
       <div className="hero">
         <div>
-          <div className="hero-sub">📸 one-time use · share instantly</div>
+          <div className="hero-sub">📸 one-time use - share instantly</div>
           <div className="hero-title">
             DISPO<br /><span className="red">CAM</span>
           </div>
@@ -744,7 +744,7 @@ applyFilmEffect(ctx, tempCanvas.width, tempCanvas.height);
                 <button key={code} className="lb-btn" style={{ justifyContent: "space-between" }}
                   onClick={() => { setCurrentAlbum(code); setIsGuest(false); setView("album"); }}>
                   <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 18, letterSpacing: 2 }}>{a.name}</span>
-                  <span style={{ color: "#a09070", fontSize: 10 }}>{a.photos.length} photos · {code}</span>
+                  <span style={{ color: "#a09070", fontSize: 10 }}>{a.photos.length} photos - {code}</span>
                 </button>
               ))}
             </div>
@@ -800,7 +800,7 @@ applyFilmEffect(ctx, tempCanvas.width, tempCanvas.height);
           <div className="album-code">{currentAlbum}</div>
         </div>
         <div className="album-url" onClick={() => { navigator.clipboard?.writeText(url); showToast("Link copied!"); }}>
-          {url} · tap to copy
+          {url} - tap to copy
         </div>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "center" }}>
           <button className="btn-primary" onClick={() => { setIsGuest(false); setView("camera"); }}>
@@ -918,11 +918,11 @@ applyFilmEffect(ctx, tempCanvas.width, tempCanvas.height);
       <div className="camera-wrap">
         {isGuest && album && (
           <div style={{ width: "100%", textAlign: "center" }}>
-            <div className="guest-indicator">📷 Adding to: {album.name} · {currentAlbum}</div>
+            <div className="guest-indicator">📷 Adding to: {album.name} - {currentAlbum}</div>
           </div>
         )}
 
-<div className={`viewfinder>
+<div className="viewfinder">
     <video
     ref={videoRef}
     autoPlay
@@ -944,7 +944,7 @@ applyFilmEffect(ctx, tempCanvas.width, tempCanvas.height);
   )}
   
   <div className="vf-overlay vf-corners" />
-  <div className="film-badge">DISPO-CAM · 400</div>
+  <div className="film-badge">DISPO-CAM - 400</div>
 </div>
 
         <div className="camera-controls">
@@ -1046,7 +1046,7 @@ applyFilmEffect(ctx, tempCanvas.width, tempCanvas.height);
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 8 }}>
             <div>
               <div className="album-title">{album?.name || "Album"}</div>
-              <div className="photo-count">{photos.length} photo{photos.length !== 1 ? "s" : ""} · code: {currentAlbum}</div>
+              <div className="photo-count">{photos.length} photo{photos.length !== 1 ? "s" : ""} - code: {currentAlbum}</div>
             </div>
             <div style={{ display: "flex", gap: 8 }}>
               <button className="lb-btn" onClick={() => setView("camera")}>📸 Camera</button>
@@ -1081,14 +1081,14 @@ applyFilmEffect(ctx, tempCanvas.width, tempCanvas.height);
   </div>
 )}
                 <div className="photo-card-overlay">
-                  <div className="photo-meta">
-                    {new Date(photo.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                    {photo.uploaderName
-                    ? ` · ${photo.uploaderName}`
-                    : photo.uploaderType === "guest"
-                    ? " · guest"
-                    : ""}
-                  </div>
+                <div className="photo-meta">
+                {new Date(photo.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                {photo.uploaderName
+                  ? " - " + photo.uploaderName
+                  : photo.uploaderType === "guest"
+                  ? " - guest"
+                  : ""}
+              </div>
                 </div>
                 {photo.caption && (
                   <div className="caption-chip" style={{ fontSize: 9, maxHeight: 40, overflow: "hidden" }}>
@@ -1197,8 +1197,8 @@ applyFilmEffect(ctx, tempCanvas.width, tempCanvas.height);
     fontFamily: "'Space Mono', monospace"
   }}
 >
-  Photo {lightbox + 1} of {photos.length} ·{" "}
-  {new Date(lbPhoto.timestamp).toLocaleString()} ·{" "}
+  Photo {lightbox + 1} of {photos.length} -{" "}
+  {new Date(lbPhoto.timestamp).toLocaleString()} -{" "}
   {lbPhoto.uploaderName
     ? lbPhoto.uploaderName
     : lbPhoto.uploaderType}
