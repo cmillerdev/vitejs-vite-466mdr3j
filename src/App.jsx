@@ -364,6 +364,16 @@ export default function DisposableCamera() {
 
   useEffect(() => {
     if (view !== "camera") return;
+  
+    stopCamera();
+  
+    setTimeout(() => {
+      startCamera();
+    }, 150);
+  }, [facing]);
+
+  useEffect(() => {
+    if (view !== "camera") return;
     if (!cameraStream) return;
     if (!videoRef.current) return;
   
@@ -429,7 +439,9 @@ export default function DisposableCamera() {
   async function startCamera() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: true,
+        video: {
+          facingMode: facing
+        },
         audio: false
       });
   
