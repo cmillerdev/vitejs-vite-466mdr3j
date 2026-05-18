@@ -608,33 +608,46 @@ export default function DisposableCamera() {
   
       const ctx = tempCanvas.getContext("2d");
   
-      if (filterType === "vintage") {
-        ctx.filter = "sepia(0.35) contrast(1.1) saturate(0.9)";
-      } else if (filterType === "bw") {
-        ctx.filter = "grayscale(1) contrast(1.15)";
-      } else if (filterType === "dreamy") {
-        ctx.filter = "brightness(1.08) saturate(1.2) blur(0.4px)";
-      } else if (filterType === "flash") {
-        ctx.filter = "contrast(1.3) saturate(1.4) brightness(1.08)";
-      } else {
-        ctx.filter = "none";
-      }
-  
       ctx.drawImage(img, 0, 0);
 
-if (filterType === "bw") {
-  const imageData = ctx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
-  const data = imageData.data;
+const imageData = ctx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+const data = imageData.data;
 
-  for (let i = 0; i < data.length; i += 4) {
-    const gray = data[i] * 0.3 + data[i + 1] * 0.59 + data[i + 2] * 0.11;
-    data[i] = gray;
-    data[i + 1] = gray;
-    data[i + 2] = gray;
+for (let i = 0; i < data.length; i += 4) {
+  let r = data[i];
+  let g = data[i + 1];
+  let b = data[i + 2];
+
+  if (filterType === "bw") {
+    const gray = r * 0.3 + g * 0.59 + b * 0.11;
+    r = g = b = gray;
   }
 
-  ctx.putImageData(imageData, 0, 0);
+  if (filterType === "vintage") {
+    r *= 1.08;
+    g *= 1.0;
+    b *= 0.82;
+  }
+
+  if (filterType === "dreamy") {
+    r *= 1.12;
+    g *= 1.08;
+    b *= 1.15;
+  }
+
+  if (filterType === "flash") {
+    r *= 1.18;
+    g *= 1.18;
+    b *= 1.18;
+  }
+
+  data[i] = Math.min(255, r);
+  data[i + 1] = Math.min(255, g);
+  data[i + 2] = Math.min(255, b);
 }
+
+ctx.putImageData(imageData, 0, 0);
+
 
 applyFilmEffect(ctx, tempCanvas.width, tempCanvas.height);
   
